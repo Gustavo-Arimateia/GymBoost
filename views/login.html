@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+    <title>Login</title>
+    
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="css/login.css">
+  
+  </head>
+  <body>
+    <main>
+
+      <div class="d-flex justify-content-center py-4">
+        <a href="/" class="logo d-flex align-items-center w-auto">
+          <img src="assets/img/logo.png" alt="">
+          <span class="d-none d-lg-block">Boost</span>
+        </a>
+      </div>
+
+    <div class="container" id="container">
+      <div class="form-container sign-up-container">
+        <form action="/login" method="post" id="form">
+          <h1>Criar Conta</h1>
+            
+          
+          <span>use seu gmail para registrar</span>
+          <p>
+          <input type="email" placeholder="Email" id="email" name="email_cad">
+          <input type="password" placeholder="Senha" id="senha" name="senha_cad">
+          <div class="checkbox-wrapper-35">
+            <input type="hidden" name="checkboxValue" id="checkboxValue" value="cliente">
+            <input name="switch" id="switch" type="checkbox" class="switch">
+            <label for="switch">
+              <span class="switch-x-text">Você é </span>
+              <span class="switch-x-toggletext">
+                <span class="switch-x-checked"><span class="switch-x-hiddenlabel" name="profissional">Checked: </span>Profissional</span>
+                <span class="switch-x-unchecked"><span class="switch-x-hiddenlabel" name="cliente">Unchecked: </span>Cliente</span>
+                </span>
+            </label>
+          </div>
+
+          <script>
+            const checkbox = document.getElementById('switch');
+            const checkboxValue = document.getElementById('checkboxValue');
+            
+            checkbox.addEventListener('change', function() {
+              checkboxValue.value = this.checked ? 'profissional' : 'cliente';
+            });
+            </script>
+            
+          
+          <button type="submit" class="inscrever">Inscrever-se</button>
+        </form>
+      </div>
+      <div class="form-container sign-in-container">
+        <form action="/login2" method="post" id="form">
+          <p>
+          <h1>Inicia Sessão</h1>
+         
+          <span>use sua conta</span>
+          <P>
+          <input type="email" placeholder="Email" id="email2" name="email_user">
+          <input type="password" placeholder="Senha" id="senha2" name="senha_user">
+    
+          <a  data-bs-toggle="modal" data-bs-target="#esqueceu" style="cursor: pointer;">Esqueceu a senha?</a>
+          <P>
+          <button type="submit"  class="iniciar">Iniciar</button>
+        </form>
+      </div>
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <h1>Bem vindo de volta!</h1>
+            <p>
+              Para continuar conectado conosco logue com suas informações
+              pessoais
+            </p>
+            <button class="ghost" id="signIn">Iniciar</button>
+          </div>
+          <div class="overlay-panel overlay-right">
+            <h1>Novo por aqui?</h1>
+            <p>
+              Entre com seus detalhes pessoais e comece sua jornada
+            </p>
+            <button class="ghost" id="signUp">Inscrever-se</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+  </main>
+
+
+  <div class="modal fade" id="esqueceu" tabindex="-1" aria-labelledby="popupLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+          <div class="modal-body">
+            <form action="senha" method="post">
+        <div class="row mb-3">
+          <label for="email" class="col-md-4 col-lg-3 col-form-label">Coloque seu e-mail</label>
+          <div class="col-md-8 col-lg-9">
+            <input name="email" type="email" class="form-control" id="email" placeholder="name@example.com">
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Nova senha</label>
+          <div class="col-md-8 col-lg-9">
+            <input name="newpassword" type="password" class="form-control" id="newPassword">
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Confirme sua nova senha</label>
+          <div class="col-md-8 col-lg-9">
+            <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Mudar senha</button>
+      </div>
+      
+    </div>
+  </form>
+      </div>
+    </div>
+
+
+    <script src="js/login.js"> </script>
+
+    <!-- Vendor JS Files -->
+  <script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="/assets/vendor/echarts/echarts.min.js"></script>
+  <script src="/assets/vendor/quill/quill.min.js"></script>
+  <script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="/assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="/assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/assets/js/main.js"></script>
+
+  </body>
+</html>

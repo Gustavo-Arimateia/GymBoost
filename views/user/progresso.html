@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Boost / Progresso</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="/inicio" class="logo d-flex align-items-center">
+        <img src="assets/img/logo.png">
+        <span class="d-none d-lg-block">Boost</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+        <li class="nav-item dropdown pe-3">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            {% set foto = forms.foto %}
+
+            {% if foto and foto !== '' %}
+                <img src="/assets/fotos/{{ foto }}" alt="Foto do Usuário" style="width: 50px; height: 50px;" class="rounded-circle">
+            {% else %}
+                <img src="/assets/fotos/foto_padrao.png" alt="Foto Padrão" style="width: 50px; height: 50px;" class="rounded-circle">
+            {% endif %}
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{formsUser.nome}}</span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{formsUser.nome}}</h6>
+              <span>Aluno</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="/user-profile">
+                <i class="bi bi-person"></i>
+                <span>Meu Perfil</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="/login">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sair</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/inicio">
+          <i class="ri-home-2-line"></i>
+          <span>Início</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/treinos-da-semana">
+          <i class="bx bx-dumbbell"></i>
+          <span>Treino</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/dietas-da-semana">
+          <i class="ri-restaurant-fill"></i>
+          <span>Dieta</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link " href="/progresso">
+          <i class="bi bi-bar-chart"></i>
+          <span>Progresso</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/profissionais">
+          <i class="ri-nurse-line"></i>
+          <span>Profissionais</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/user-profile">
+          <i class="bi bi-person"></i>
+          <span>Perfil</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Seu Progresso</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/inicio"><i class="bi bi-house-door"></i></a></li>
+          <li class="breadcrumb-item active">Progresso</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+    <div class="col-12">
+              <div class="card info-card mb-0 ">
+              <div class="filter">
+                <a class="icon show" href="#" data-bs-toggle="dropdown" aria-expanded="true"><i class="ri-calendar-2-line"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow" id="dateDropdown" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 30px);" data-popper-placement="bottom-end">
+                  {% for date in bioimpedancia %}
+                    <li><a class="dropdown-item date-item" href="#" data-date="{{ date.data_bio }}">{{ date.data_bio }}</a></li>
+                  {% endfor %}
+                </ul>
+              </div>
+              
+              <div class="card-body overflow-auto">
+                <h5 class="card-title">Composição Corporal {{ bioimpedanciaNova.data_bio }}</h5>
+                
+                 <table id="bioimpedanciaTable" class="table">
+                  <thead>
+                      <tr>
+                          <th scope="col" class="col-2">G. Ideal</th>
+                          <th scope="col" class="col-2">G. Atual</th>
+                          <th scope="col" class="col-2">Massa magra</th>
+                          <th scope="col" class="col-2">Massa gorda</th>
+                          <th scope="col" class="col-2">Peso</th>
+                          <th scope="col" class="col-2">Altura</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+
+                      <td id="g_ideal"></td>
+                      <td id="g_atual"></td>
+                      <td id="massa_magra"></td>
+                      <td id="massa_gorda"></td>
+                      <td id="peso"></td>
+                      <td id="altura"></td>
+
+                    </tr>
+                  </tbody>
+                  <thead>
+                      <tr>
+                          <th scope="col" class="col-2">TX</th>
+                          <th scope="col" class="col-2">AB</th>
+                          <th scope="col" class="col-2">CX</th>
+                          <th scope="col" class="col-2">Torax</th>
+                          <th scope="col" class="col-2">Abdomem</th>
+                          <th scope="col" class="col-2">Cintura</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td id="tx"></td>
+                          <td id="ab"></td>
+                          <td id="cx"></td>
+                          <td id="torax"></td>
+                          <td id="abdomem"></td>
+                          <td id="cintura"></td>
+                      </tr>
+  
+                  </tbody>
+                  <thead>
+                      <tr>
+                          <th scope="col" class="col-2">Quadril</th>
+                          <th scope="col" class="col-2">Ombro</th>
+                          <th scope="col" class="col-2">Panturrilha D/E</th>
+                          <th scope="col" class="col-2">Braço D/E</th>
+                          <th scope="col" class="col-2">Antebraço D/E</th>
+                          <th scope="col" class="col-2">Coxa D/E</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td id='quadril'></td>
+                          <td id="ombro"></td>
+                          <td>
+                            <span id="pantu_dir"></span>/<span id="pantu_esq"></span>
+                          </td>
+                          <td>
+                            <span id="braco_dir"></span>/<span id="braco_esq"></span>
+                          </td> 
+                          <td>
+                            <span id="ante_dir"></span>/<span id="ante_esq"></span>
+                          </td>
+                          <td>
+                            <span id="coxa_dir"></span>/<span id="coxa_esq"></span>
+                          </td>
+        
+                      </tr>
+                                          
+                      
+                  </tbody>
+              </table>
+              </div>            
+            </div>
+          </section>
+  </main><!-- End #main -->
+
+  <script defer>
+    // Seu script JavaScript aqui
+    const dateItems = document.querySelectorAll('.date-item');
+    dateItems.forEach(function (item) {
+      item.addEventListener('click', function (event) {
+        event.preventDefault();
+  
+        // Obtenha a data selecionada
+        const selectedDate = item.getAttribute('data-date');
+  
+        // Faça uma solicitação AJAX para obter os dados atualizados com base na data
+        // (substitua isso pela lógica real de solicitação ao servidor)
+        fetch(`/api/bioimpedancia?data=${selectedDate}`)
+        .then((response) => response.json())
+        .then((dados) => {
+          console.log('O resutado está aqui...')
+          console.log(dados);
+          document.getElementById('g_ideal').innerHTML = dados.g_ideal
+          document.getElementById('g_atual').innerHTML = dados.g_atual
+          document.getElementById('massa_magra').innerHTML = dados.massa_magra
+          document.getElementById('massa_gorda').innerHTML = dados.massa_gorda
+          document.getElementById('peso').innerHTML = dados.peso
+          document.getElementById('altura').innerHTML = dados.altura
+          document.getElementById('tx').innerHTML = dados.tx
+          document.getElementById('ab').innerHTML = dados.ab
+          document.getElementById('cx').innerHTML = dados.cx
+          document.getElementById('torax').innerHTML = dados.torax
+          document.getElementById('abdomem').innerHTML = dados.abdomem
+          document.getElementById('cintura').innerHTML = dados.cintura
+          document.getElementById('quadril').innerHTML = dados.quadril
+          document.getElementById('ombro').innerHTML = dados.ombro
+          document.getElementById('pantu_esq').innerHTML = dados.pantu_esq
+          document.getElementById('pantu_dir').innerHTML = dados.pantu_dir
+          document.getElementById('braco_esq').innerHTML = dados.braco_esq
+          document.getElementById('braco_dir').innerHTML = dados.braco_dir
+          document.getElementById('ante_esq').innerHTML = dados.ante_esq
+          document.getElementById('ante_dir').innerHTML = dados.ante_dir
+          document.getElementById('coxa_esq').innerHTML = dados.coxa_esq
+          document.getElementById('coxa_dir').innerHTML = dados.coxa_dir
+
+        })
+        .catch((erro) => {
+          console.log('Oops... deu erro...');
+          console.log(erro);
+        });
+      });
+    });
+  
+  </script>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="assets/vendor/echarts/echarts.min.js"></script>
+  <script src="assets/vendor/quill/quill.min.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

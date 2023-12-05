@@ -1,0 +1,28 @@
+{
+  "name": "tcc-final",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./bin/www",
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.2",
+    "express-session": "^1.17.3",
+    "moment": "^2.29.4",
+    "mysql2": "^3.6.0",
+    "nunjucks": "^3.2.4",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

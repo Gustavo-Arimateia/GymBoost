@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Boost / Perfil do aluno</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/assets/img/favicon.png" rel="icon">
+  <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="/inicio-nutricionista" class="logo d-flex align-items-center">
+        <img src="/assets/img/logo.png">
+        <span class="d-none d-lg-block">Boost</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+        <li class="nav-item dropdown pe-3">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            {% set foto = itens.foto %}
+
+            {% if foto and foto !== '' %}
+                <img src="/assets/fotos/{{ foto }}" alt="Foto do Usuário" style="width: 50px; height: 50px;" class="rounded-circle">
+            {% else %}
+                <img src="/assets/fotos/foto_padrao.png" alt="Foto Padrão" style="width: 50px; height: 50px;"  class="rounded-circle">
+            {% endif %}
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{forms.nome}}</span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{forms.nome}}</h6>
+              <span>Nutricionista</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="/perfil-nutricionista">
+                <i class="bi bi-person"></i>
+                <span>Meu Perfil</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="/login">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sair</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/inicio-nutricionista">
+          <i class="ri-home-2-line"></i>
+          <span>Início</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link " href="/alunos-nutricionista">
+          <i class="bi bi-people"></i>
+          <span>Alunos</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/dietas">
+          <i class="bx bxs-fridge"></i>
+          <span>Dietas</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/feedbacks-nutricionista">
+          <i class="bi bi-emoji-smile"></i>
+          <span>Feedbacks</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/perfil-nutricionista">
+          <i class="bi bi-person"></i>
+          <span>Perfil</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Perfil {{usuario.nome}}</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active"><a href="/inicio-nutricionista"><i class="bi bi-house-door"></i></a></li>
+          <li class="breadcrumb-item active"><a href="/alunos-nutricionista">Alunos</a></li>
+          <li class="breadcrumb-item">Perfil do aluno</a></li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    
+    <section class="section dashboard">
+      <div class="row">
+        <div class="col-lg-12">
+        <!-- Bordered Tabs -->
+        <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="visa-tab" data-bs-toggle="tab" data-bs-target="#bordered-visa" type="button" role="tab" aria-controls="visa" aria-selected="true">Visão Geral</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="dieta-tab" data-bs-toggle="tab" data-bs-target="#bordered-dieta" type="button" role="tab" aria-controls="dieta" aria-selected="false">Dieta</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="feed-tab" data-bs-toggle="tab" data-bs-target="#bordered-feed" type="button" role="tab" aria-controls="feed" aria-selected="false">Feedback</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="bio-tab" data-bs-toggle="tab" data-bs-target="#bordered-bio" type="button" role="tab" aria-controls="bio" aria-selected="false">Bioimpedância</button>
+          </li>
+        </ul>
+        <div class="col-12 tab-content pt-2" id="borderedTabContent">
+          <div class="tab-pane fade show active profile " id="bordered-visa" role="tabpanel" aria-labelledby="visa-tab">
+            <div class="profile-overview">
+            <div class="row mb-0">
+              <div class="col-12">
+                <div class="card mb-0">
+                  <div class="card-body">
+                  <h5 class="card-title">Detalhes</h5>
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Nome Completo</div>
+                    <div class="col-lg-9 col-md-8">{{ usuario.nome }}</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Idade</div>
+                    <div class="col-lg-9 col-md-8">{{ usuario.idade }}</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Objetivo na dieta</div>
+                    <div class="col-lg-9 col-md-8">{{ formsu.objt_dieta }} </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Restrições alimentares</div>
+                    <div class="col-lg-9 col-md-8">{{ formsu.restricao }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Refeições do dia</div>
+                    <div class="col-lg-9 col-md-8">{{ formsu.ref_dia }}</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Telefone</div>
+                    <div class="col-lg-9 col-md-8">{{ formsu.telefone }}</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Email</div>
+                    <div class="col-lg-9 col-md-8"> {{login.email}}</div>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+           </div>
+          <div class="tab-pane fade" id="bordered-dieta" role="tabpanel" aria-labelledby="dieta-tab">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body pt-3">
+                  <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#cadastro-rotina">Cadastrar Rotina</button>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="card m-0">
+                  <div class="card-body ">
+ <!-- Accordion without outline borders -->
+{% for grupo in refeicoes %}
+<div class="accordion accordion-flush" id="rfc">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-heading-{{ grupo.grupo }}">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#grupo-{{ grupo.idx }}" aria-expanded="false" aria-controls="flush-collapseum">
+                {{ grupo.grupo }} - {{grupo.horario}}
+            </button>
+        </h2>
+        <div id="grupo-{{ grupo.idx }}" class="accordion-collapse collapse" aria-labelledby="flush-heading-{{ grupo.grupo }}"
+            data-bs-parent="#rfc">
+            <div class="accordion-body overflow-auto">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th>Alimento</th>
+                            <th>Quant.</th>
+                            <th>Proteina</th>
+                            <th>Carboidratos</th>
+                            <th>Gordura</th>
+                            <th>Calorias</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for alimento in grupo.alimentos %}
+                            <tr>
+                                <td>{{ alimento.nome }}</td>
+                                <td>{{ alimento.quantidade }}</td>
+                                <td>{{ alimento.proteina }}</td>
+                                <td>{{ alimento.carboidratos }}</td>
+                                <td>{{ alimento.gorduras }}</td>
+                                <td>{{ alimento.calorias }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="d-flex flex-row-reverse pt-2">
+                    <button type="button" id="mostrar-popup-delet"  class="btn btn-outline-danger btn-lg"
+                        data-bs-toggle="modal" data-bs-target="#remover-rotina"><i
+                            class="bx bx-trash"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% set rota4 = ["/deletar-ref/", usuario.id] | join %}
+    <div class="modal fade" id="remover-rotina" tabindex="-1" aria-labelledby="popupLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Tem certeza que deseja remover essa rotina?</p>
+          </div>
+          <div class="modal-footer">
+            <form action="{{rota4}}" method="post">
+              <button type="submit" value="{{ rotina.id }}" name="deletar" class="btn btn-danger">Remover</button>
+            </form>
+          </div>
+        </div>
+        </div>
+      </div>
+{% endfor %}
+
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex flex-row-reverse pt-2"> 
+                <button class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#model-dieta"><i class="ri-file-add-line"></i></button>
+              </div>
+          </div>
+
+
+          <div class="tab-pane fade" id="bordered-feed" role="tabpanel" aria-labelledby="feed-tab">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">     Feedback do seu aluno</h5>
+           
+                  {{feed.feedback}} 
+              
+              </div>
+          </div>
+          </div>
+
+
+          <div class="tab-pane fade" id="bordered-bio" role="tabpanel" aria-labelledby="bio-tab">
+            <section class="section dashboard">
+              <div class="col-12">
+                        <div class="card info-card mb-0 ">
+                        <div class="filter">
+                          <a class="icon show" href="#" data-bs-toggle="dropdown" aria-expanded="true"><i class="ri-calendar-2-line"></i></a>
+                          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow" id="dateDropdown" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 30px);" data-popper-placement="bottom-end">
+                            {% for date in bioimpedancia %}
+                              <li><a class="dropdown-item date-item" href="#" data-date="{{ date.data_bio }}">{{ date.data_bio }}</a></li>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        
+                        <div class="card-body overflow-auto">
+                          <h5 class="card-title">Composição Corporal {{ bioimpedanciaNova.data_bio }}</h5>
+                          
+                           <table id="bioimpedanciaTable" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="col-2">G. Ideal</th>
+                                    <th scope="col" class="col-2">G. Atual</th>
+                                    <th scope="col" class="col-2">Massa magra</th>
+                                    <th scope="col" class="col-2">Massa gorda</th>
+                                    <th scope="col" class="col-2">Peso</th>
+                                    <th scope="col" class="col-2">Altura</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+          
+                                <td id="g_ideal"></td>
+                                <td id="g_atual"></td>
+                                <td id="massa_magra"></td>
+                                <td id="massa_gorda"></td>
+                                <td id="peso"></td>
+                                <td id="altura"></td>
+          
+                              </tr>
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="col-2">TX</th>
+                                    <th scope="col" class="col-2">AB</th>
+                                    <th scope="col" class="col-2">CX</th>
+                                    <th scope="col" class="col-2">Torax</th>
+                                    <th scope="col" class="col-2">Abdomem</th>
+                                    <th scope="col" class="col-2">Cintura</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td id="tx"></td>
+                                    <td id="ab"></td>
+                                    <td id="cx"></td>
+                                    <td id="torax"></td>
+                                    <td id="abdomem"></td>
+                                    <td id="cintura"></td>
+                                </tr>
+            
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="col-2">Quadril</th>
+                                    <th scope="col" class="col-2">Ombro</th>
+                                    <th scope="col" class="col-2">Panturrilha D/E</th>
+                                    <th scope="col" class="col-2">Braço D/E</th>
+                                    <th scope="col" class="col-2">Antebraço D/E</th>
+                                    <th scope="col" class="col-2">Coxa D/E</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td id='quadril'></td>
+                                    <td id="ombro"></td>
+                                    <td>
+                                      <span id="pantu_dir"></span>/<span id="pantu_esq"></span>
+                                    </td>
+                                    <td>
+                                      <span id="braco_dir"></span>/<span id="braco_esq"></span>
+                                    </td> 
+                                    <td>
+                                      <span id="ante_dir"></span>/<span id="ante_esq"></span>
+                                    </td>
+                                    <td>
+                                      <span id="coxa_dir"></span>/<span id="coxa_esq"></span>
+                                    </td>
+                  
+                                </tr>
+                                                    
+                                
+                            </tbody>
+                        </table>
+                        </div>                   
+                      </div>
+                      <div class="d-flex flex-row-reverse pt-2"> 
+                        <button class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#bioModal"><i class="bx bxs-edit"></i></button>
+                    </div> 
+                    </section>
+          </div>
+   
+  </main><!-- End #main -->
+
+  <script defer>
+    // Seu script JavaScript aqui
+    const dateItems = document.querySelectorAll('.date-item');
+    dateItems.forEach(function (item) {
+      item.addEventListener('click', function (event) {
+        event.preventDefault();
+  
+        // Obtenha a data selecionada
+        const selectedDate = item.getAttribute('data-date');
+  
+        // Faça uma solicitação AJAX para obter os dados atualizados com base na data
+        // (substitua isso pela lógica real de solicitação ao servidor)
+        fetch(`/apiNutri/{{usuario.id}}/bioimpedancia?data=${selectedDate}`)
+        .then((response) => response.json())
+        .then((dados) => {
+          console.log('O resutado está aqui...')
+          console.log(dados);
+          document.getElementById('g_ideal').innerHTML = dados.g_ideal
+          document.getElementById('g_atual').innerHTML = dados.g_atual
+          document.getElementById('massa_magra').innerHTML = dados.massa_magra
+          document.getElementById('massa_gorda').innerHTML = dados.massa_gorda
+          document.getElementById('peso').innerHTML = dados.peso
+          document.getElementById('altura').innerHTML = dados.altura
+          document.getElementById('tx').innerHTML = dados.tx
+          document.getElementById('ab').innerHTML = dados.ab
+          document.getElementById('cx').innerHTML = dados.cx
+          document.getElementById('torax').innerHTML = dados.torax
+          document.getElementById('abdomem').innerHTML = dados.abdomem
+          document.getElementById('cintura').innerHTML = dados.cintura
+          document.getElementById('quadril').innerHTML = dados.quadril
+          document.getElementById('ombro').innerHTML = dados.ombro
+          document.getElementById('pantu_esq').innerHTML = dados.pantu_esq
+          document.getElementById('pantu_dir').innerHTML = dados.pantu_dir
+          document.getElementById('braco_esq').innerHTML = dados.braco_esq
+          document.getElementById('braco_dir').innerHTML = dados.braco_dir
+          document.getElementById('ante_esq').innerHTML = dados.ante_esq
+          document.getElementById('ante_dir').innerHTML = dados.ante_dir
+          document.getElementById('coxa_esq').innerHTML = dados.coxa_esq
+          document.getElementById('coxa_dir').innerHTML = dados.coxa_dir
+
+        })
+        .catch((erro) => {
+          console.log('Oops... deu erro...');
+          console.log(erro);
+        });
+      });
+    });
+  
+  </script>
+
+
+  {% set rota3 = ["/refeicoes/", usuario.id] | join %}
+
+  <div class="modal fade" id="model-dieta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <form action="{{ rota3 }}" method="post">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <select class="form-select mb-2" name="rotina">
+            <option selected>Qual rotina irá adicionar os alimentos?</option>
+            {% for rotina in rotinas %}
+              <option value="{{rotina.nome_ref}}">{{rotina.nome_ref}}</option>
+            {% endfor %}
+              
+          </select>
+          {% for alimento in alimentos %}
+          <div class="form-check">
+            <input type="hidden" name="alimentos_lista[]" value="{{alimento.alimento}}" >
+            <input class="form-check-input" type="checkbox" value="{{alimento.alimento}}" name="alimentos[]" data-toggle="collapse" data-target="#{{limparIdentificador(alimento.alimento)}}" >
+            <label class="form-check-label" for="checkbox1" name=" {{alimento.alimento}}">
+              {{alimento.alimento}}
+            </label>
+            <div class="collapse extra-info" id="{{limparIdentificador(alimento.alimento)}}">
+              <!-- Conteúdo extra 1 a ser exibido/oculto -->
+              <div class="row g-2">
+                <div class="col-md">
+                  <div class="form-floating">
+                    <input name="quantidade[]" type="text" placeholder="porção(100g)" class="form-control" id="quantidade"  oninput="this.value = this.value.replace(/[^0-9,.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1'); this.value = this.value.replace(/(,.*),/g, '$1');">
+                    <label for="floatingInputGrid">Quantidade</label>
+                  </div>
+                </div>
+                <div class="col-md">
+                  <div class="form-floating">
+                    <input type="text" disabled="" value="{{alimento.proteinas}}" class="form-control" id="floatingSelectGrid" disabled>
+                    <label for="floatingSelectGrid">Proteinas</label>
+                  </div>
+                </div>
+                <div class="col-md">
+                  <div class="form-floating">
+                    <input type="text" disabled="" value="{{alimento.gorduras}}" class="form-control" id="floatingSelectGrid" disabled>
+                    <label for="floatingSelectGrid">Gordura</label>
+                  </div>
+                </div>
+                <div class="col-md">
+                  <div class="form-floating">
+                    <input type="text" disabled="" value="{{alimento.carboidratos}}" class="form-control" id="floatingSelectGrid" disabled>
+                    <label for="floatingSelectGrid">Carboidratos</label>
+                  </div>
+                </div>
+                <div class="col-md">
+                  <div class="form-floating">
+                    <input type="text" disabled="" value="{{alimento.calorias}}" class="form-control" id="floatingSelectGrid" disabled>
+                    <label for="floatingSelectGrid">Calorias</label>
+                  </div>
+                </div>
+              </div>
+           </div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Adicionar</button>
+        </div>
+      </form>
+    </div>
+    </div>  
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+ 
+ 
+
+
+
+  {% set rota2 = ["/rotina/", usuario.id] | join %}
+
+
+  <div class="modal fade" id="cadastro-rotina" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="card-title ">Crie uma rotina para seu aluno</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{{rota2}}" method="post">
+            <select class="form-select" name="ref">
+              <option value="Café da Manhã" selected>Café da Manhã</option>
+              <option value="Lanche">Lanche</option>
+              <option value="Almoço">Almoço</option>
+              <option value="Café da Tarde">Café da Tarde</option>
+              <option value="Pre Treino">Pre Treino</option>
+              <option value="Pós Treino">Pós Treino</option>
+              <option value="Janta">Janta</option>
+              <option value="Ceia">Ceia</option>
+            </select>
+          <input type="time" class="form-control mt-2" name="hora_ref" id="hora_ref">
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Adicionar</button>
+        </div>
+      </form>  
+      </div>
+      </div>
+    </div>
+
+
+    
+
+
+
+      {% set rota = ["/perfil-alunos-nutricionista/", usuario.id] | join %}
+
+   <div class="modal fade" id="bioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body overflow-auto">
+        <form action="{{rota}}" method="post">
+        <input type="date" class="form-control" name="data_bio" id="data_bio" placeholder="Selecione a data">
+        <table class="table">
+          <thead>
+              <tr>
+                  <th scope="col" class="col-2">G. Ideal</th>
+                  <th scope="col" class="col-2">G. Atual</th>
+                  <th scope="col" class="col-2">Massa magra</th>
+                  <th scope="col" class="col-2">Massa gorda</th>
+                  <th scope="col" class="col-2">Peso</th>
+                  <th scope="col" class="col-2">Altura</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>
+                    <input name="g_ideal" type="text" class="form-control" id="g.ideal" placeholder="%">
+                  </td>
+                  <td>
+                    <input name="g_atual" type="text" class="form-control" id="g.atual" placeholder="%">
+                  </td>
+                  <td>
+                    <input name="massa_magra" type="text" class="form-control" id="massa-magra" placeholder="Kg">
+                  </td>
+                  <td>
+                    <input name="massa_gorda" type="text" class="form-control" id="massa-gorda" placeholder="Kg">
+                  </td>
+                  <td>
+                    <input name="peso" type="text" class="form-control" id="peso" placeholder="Kg">
+                  </td>
+                  <td>
+                    <input name="altura" type="text" class="form-control" id="altura" placeholder="cm">
+                  </td>
+                
+              </tr>
+          </tbody>
+          <thead>
+              <tr>
+                  <th scope="col" class="col-2">TX</th>
+                  <th scope="col" class="col-2">AB</th>
+                  <th scope="col" class="col-2">CX</th>
+                  <th scope="col" class="col-2">Torax</th>
+                  <th scope="col" class="col-2">Abdomem</th>
+                  <th scope="col" class="col-2">Cintura</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td>
+                  <input name="tx" type="text" class="form-control" id="tx" placeholder="%">
+                </td>
+                <td>
+                  <input name="ab" type="text" class="form-control" id="ab" placeholder="%">
+                </td>
+                <td>
+                  <input name="cx" type="text" class="form-control" id="cx" placeholder="Kg">
+                </td>
+                <td>
+                  <input name="torax" type="text" class="form-control" id="torax" placeholder="cm">
+                </td>
+                <td>
+                  <input name="abdomem" type="text" class="form-control" id="abdomem" placeholder="cm">
+                </td>
+                <td>
+                  <input name="cintura" type="text" class="form-control" id="cintura" placeholder="cm">
+                </td>
+              </tr>
+          </tbody>
+          <thead>
+              <tr>
+                  <th scope="col" class="col-2">Quadril</th>
+                  <th scope="col" class="col-2">Ombro</th>
+                  <th scope="col" class="col-2">Panturrilha D/E</th>
+                  <th scope="col" class="col-2">Braço D/E</th>
+                  <th scope="col" class="col-2">Antebraço D/E</th>
+                  <th scope="col" class="col-2">Coxa D/E</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td>
+                  <input name="quadril" type="text" class="form-control" id="quadril" placeholder="cm">
+                </td>
+                <td>
+                  <input name="ombro" type="text" class="form-control" id="ombro" placeholder="cm">
+                </td>
+                <td>
+                  <input name="pantu_d" type="text" class="form-control" id="pantu-d" placeholder="Direita/cm">
+                  <input name="pantu_e" type="text" class="form-control" id="pantu-e" placeholder="Esquerda/cm">
+                </td>
+                <td>
+                  <input name="braco_d" type="text" class="form-control" id="braco-d" placeholder="Direita/cm">
+                  <input name="braco_e" type="text" class="form-control" id="braco-e" placeholder="Esquerda/cm">
+                </td>
+                <td> 
+                  <input name="ante_braco_d" type="text" class="form-control" id="ante-braco-d" placeholder="Direita/cm">
+                  <input name="ante_braco_e" type="text" class="form-control" id="ante-braco-e" placeholder="Esquerda/cm">
+                </td>
+                <td>
+                  <input name="coxa_d" type="text" class="form-control" id="coxa-d" placeholder="Direita/cm">
+                  <input name="coxa_e" type="text" class="form-control" id="coxa-e" placeholder="Esquerda/cm">
+                </td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary">Adicionar</button>
+    </div>
+    </div>
+    </form>
+    </div>
+  </div>
+
+
+
+  
+
+  <!-- Vendor JS Files -->
+  <script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="/assets/vendor/echarts/echarts.min.js"></script>
+  <script src="/assets/vendor/quill/quill.min.js"></script>
+  <script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="/assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="/assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/assets/js/main.js"></script>
+
+</body>
+
+</html>

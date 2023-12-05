@@ -1,0 +1,378 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Montserrat", sans-serif;
+  height: 100vh;
+  margin: -20px 0 50px;
+}
+
+h1 {
+  font-weight: bold;
+  margin: 0;
+}
+
+h2 {
+  text-align: center;
+}
+
+p {
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 20px;
+  letter-spacing: 0.5px;
+  margin: 20px 0 30px;
+}
+
+span {
+  font-size: 12px;
+}
+
+a {
+  color: #333;
+  font-size: 14px;
+  text-decoration: none;
+  margin: 15px 0;
+}
+
+button {
+  cursor: pointer;
+  border-radius: 20px;
+  border: 1px solid #aab8d6;
+  background-color: #ffffff;
+  color: #aab8d6;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+button:focus {
+  outline: none;
+}
+
+button.ghost {
+  background-color: transparent;
+  border-color: #ffffff;
+}
+
+#form {
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  text-align: center;
+}
+
+input {
+  background-color: #aab8d6;
+  border-radius: 17px;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100%;
+}
+
+
+.container {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35), 0 10px 10px rgba(0, 0, 0, 0.32);
+  position: relative; /*relative ou flex*/
+  overflow: hidden;
+  width: 768px;
+  max-width: 100%;
+  min-height: 480px;
+}
+
+.form-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+}
+
+.sign-in-container {
+  left: 0;
+  width: 50%;
+  z-index: 2;
+}
+
+.container.right-panel-active .sign-in-container {
+  transform: translateX(100%);
+}
+
+.sign-up-container {
+  left: 0;
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
+}
+
+.container.right-panel-active .sign-up-container {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+  animation: show 0.6s;
+}
+
+@keyframes show {
+  0%,
+  49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 1;
+    z-index: 5;
+  }
+}
+
+.overlay-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
+  z-index: 100;
+}
+
+.container.right-panel-active .overlay-container {
+  transform: translateX(-100%);
+}
+
+.overlay {
+  background-image: url("https://images.ctfassets.net/8urtyqugdt2l/udZ81WiNV8AqelyD1Z1Bl/839a8866f86ef07f51c5e48453ccdd57/CBum-Double-Bicep.jpg?w=1310&h=1310&fit=thumb");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0 0;
+  color: #ffffff;
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+.container.right-panel-active .overlay {
+  transform: translateX(50%);
+}
+
+.overlay-panel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  text-align: center;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+.overlay-left {
+  transform: translateX(-20%);
+}
+
+.container.right-panel-active .overlay-left {
+  transform: translateX(0);
+}
+
+.overlay-right {
+  right: 0;
+  transform: translateX(0);
+}
+
+.container.right-panel-active .overlay-right {
+  transform: translateX(20%);
+}
+
+.social-container {
+  margin: 20px 0;
+}
+
+.social-container a {
+  border: 1px solid #aab8d6;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5px;
+  height: 40px;
+  width: 40px;
+}
+
+footer {
+  background-color: #222;
+  color: #fff;
+  font-size: 14px;
+  bottom: 0;
+  position: fixed;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 999;
+}
+
+footer p {
+  margin: 10px 0;
+}
+
+footer i {
+  color: red;
+}
+
+footer a {
+  color: #3c97bf;
+  text-decoration: none;
+}
+
+
+.checkbox-wrapper-35 .switch {
+  display: none;
+}
+
+.checkbox-wrapper-35{
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.checkbox-wrapper-35 .switch + label {
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #78768d;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 15px;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkbox-wrapper-35 .switch + label::before,
+  .checkbox-wrapper-35 .switch + label::after {
+  content: '';
+  display: block;
+}
+
+.checkbox-wrapper-35 .switch + label::before {
+  background-color: #05012c;
+  border-radius: 500px;
+  height: 15px;
+  margin-right: 8px;
+  -webkit-transition: background-color 0.125s ease-out;
+  transition: background-color 0.125s ease-out;
+  width: 25px;
+}
+
+.checkbox-wrapper-35 .switch + label::after {
+  background-color: #fff;
+  border-radius: 13px;
+  box-shadow: 0 3px 1px 0 rgba(37, 34, 71, 0.05), 0 2px 2px 0 rgba(37, 34, 71, 0.1), 0 3px 3px 0 rgba(37, 34, 71, 0.05);
+  height: 13px;
+  left: 1px;
+  position: absolute;
+  top: 1px;
+  -webkit-transition: -webkit-transform 0.125s ease-out;
+  transition: -webkit-transform 0.125s ease-out;
+  transition: transform 0.125s ease-out;
+  transition: transform 0.125s ease-out, -webkit-transform 0.125s ease-out;
+  width: 13px;
+}
+
+.checkbox-wrapper-35 .switch + label .switch-x-text {
+  display: block;
+  margin-right: .3em;
+}
+
+.checkbox-wrapper-35 .switch + label .switch-x-toggletext {
+  display: block;
+  font-weight: bold;
+  height: 15px;
+  position: relative;
+  width: 25px;
+}
+
+.checkbox-wrapper-35 .switch + label .switch-x-unchecked,
+  .checkbox-wrapper-35 .switch + label .switch-x-checked {
+  left: 0;
+  position: absolute;
+  top: 0;
+  -webkit-transition: opacity 0.125s ease-out, -webkit-transform 0.125s ease-out;
+  transition: opacity 0.125s ease-out, -webkit-transform 0.125s ease-out;
+  transition: transform 0.125s ease-out, opacity 0.125s ease-out;
+  transition: transform 0.125s ease-out, opacity 0.125s ease-out, -webkit-transform 0.125s ease-out;
+}
+
+.checkbox-wrapper-35 .switch + label .switch-x-unchecked {
+  opacity: 1;
+  -webkit-transform: none;
+  transform: none;
+}
+
+.checkbox-wrapper-35 .switch + label .switch-x-checked {
+  opacity: 0;
+  -webkit-transform: translate3d(0, 100%, 0);
+  transform: translate3d(0, 100%, 0);
+}
+
+.checkbox-wrapper-35 .switch + label .switch-x-hiddenlabel {
+  position: absolute;
+  visibility: hidden;
+}
+
+.checkbox-wrapper-35 .switch:checked + label::before {
+  background-color: #93b7be;
+}
+
+.checkbox-wrapper-35 .switch:checked + label::after {
+  -webkit-transform: translate3d(10px, 0, 0);
+  transform: translate3d(10px, 0, 0);
+}
+
+.checkbox-wrapper-35 .switch:checked + label .switch-x-unchecked {
+  opacity: 0;
+  -webkit-transform: translate3d(0, -100%, 0);
+  transform: translate3d(0, -100%, 0);
+}
+
+.checkbox-wrapper-35 .switch:checked + label .switch-x-checked {
+  opacity: 1;
+  -webkit-transform: none;
+  transform: none;
+}

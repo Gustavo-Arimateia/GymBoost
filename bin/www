@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+const app = require('../app')
+
+const host = 'localhost'
+const porta = '3000'
+
+app.listen(porta, host, ()=>{
+    console.log(`Servidor iniciado em http://${host}:${porta}`)
+})
