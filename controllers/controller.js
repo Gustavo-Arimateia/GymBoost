@@ -238,85 +238,94 @@ const listaController = {
 
 
         const [ficha] = await bd.query ("SELECT id FROM ficha WHERE  id_usuario = ? ", [userId])
-        const fichaId = ficha[0].id
 
-        let [card] = await bd.query ("SELECT * FROM dia WHERE id_ficha = ?", [fichaId])
+        if(ficha.length != 0){
 
-        let [dia] = await bd.query(`SELECT d.dia, d.tipo , g.grupo, e.exercicio
-        FROM treino as t
-        JOIN ficha as f ON t.id_ficha = f.id
-        JOIN exercicio as e ON t.id_exercicio = e.id
-        JOIN dia as d ON t.id_dia = d.id
-        JOIN usuario as u ON t.id_usuario = u.id
-        JOIN profissional as p ON t.id_profissional = p.id
-        join grupo as g ON e.id_grupo = g.id
-
-        WHERE f.id = ?
-        `, [fichaId])
-          
-          const treinosAgrupadas = {}
-
-          let tipos = []
-          card.forEach((dados) => {
-            if (tipos.indexOf(dados.tipo) === -1) {
-                tipos.push(dados.tipo)
-            }
-          });
-
-          tipos.forEach((tipo) => {
-            treinosAgrupadas[tipo] = {
-                tipo: tipo,
-                dias: [],
-                grupos: {}
-            }
-          });
-
-          dia.forEach((dados) => {
-            if (treinosAgrupadas[dados.tipo].dias.indexOf(dados.dia) === -1) {
-                treinosAgrupadas[dados.tipo].dias.push(dados.dia);
-            }
-          });
-
-          tipos.forEach((tipo) => {
-            let grupos = []
-            dia.forEach((dados) => {
-                if (dados.tipo === tipo) {
-                    if (grupos.indexOf(dados.grupo) === -1) {
-                        grupos.push(dados.grupo);
-                    }
+            const fichaId = ficha[0].id
+    
+            let [card] = await bd.query ("SELECT * FROM dia WHERE id_ficha = ?", [fichaId])
+    
+            let [dia] = await bd.query(`SELECT d.dia, d.tipo , g.grupo, e.exercicio
+            FROM treino as t
+            JOIN ficha as f ON t.id_ficha = f.id
+            JOIN exercicio as e ON t.id_exercicio = e.id
+            JOIN dia as d ON t.id_dia = d.id
+            JOIN usuario as u ON t.id_usuario = u.id
+            JOIN profissional as p ON t.id_profissional = p.id
+            join grupo as g ON e.id_grupo = g.id
+    
+            WHERE f.id = ?
+            `, [fichaId])
+              
+              const treinosAgrupadas = {}
+    
+              let tipos = []
+              card.forEach((dados) => {
+                if (tipos.indexOf(dados.tipo) === -1) {
+                    tipos.push(dados.tipo)
                 }
               });
-     
-            grupos.forEach((grupo) => {
-                let exercicios = []
+    
+              tipos.forEach((tipo) => {
+                treinosAgrupadas[tipo] = {
+                    tipo: tipo,
+                    dias: [],
+                    grupos: {}
+                }
+              });
+    
+              dia.forEach((dados) => {
+                if (treinosAgrupadas[dados.tipo].dias.indexOf(dados.dia) === -1) {
+                    treinosAgrupadas[dados.tipo].dias.push(dados.dia);
+                }
+              });
+    
+              tipos.forEach((tipo) => {
+                let grupos = []
                 dia.forEach((dados) => {
-                    if (dados.tipo === tipo && dados.grupo === grupo) {
-                        if (exercicios.indexOf(dados.exercicio) === -1) {
-                            exercicios.push(dados.exercicio);
+                    if (dados.tipo === tipo) {
+                        if (grupos.indexOf(dados.grupo) === -1) {
+                            grupos.push(dados.grupo);
                         }
                     }
+                  });
+         
+                grupos.forEach((grupo) => {
+                    let exercicios = []
+                    dia.forEach((dados) => {
+                        if (dados.tipo === tipo && dados.grupo === grupo) {
+                            if (exercicios.indexOf(dados.exercicio) === -1) {
+                                exercicios.push(dados.exercicio);
+                            }
+                        }
+                    });
+                    treinosAgrupadas[tipo].grupos[grupo] = {
+                        grupo: grupo,
+                        exercicios: exercicios
+                    }
                 });
-                treinosAgrupadas[tipo].grupos[grupo] = {
-                    grupo: grupo,
-                    exercicios: exercicios
-                }
-            });
-          });
+              });
+    
+    
+              console.log(treinosAgrupadas)
+
+              res.status(200).render('user/inicio.html', {
+                refeicoes: refeicoes,
+                forms: forms[0],
+                formsUser: formsUser[0],
+                treinosAgrupadas
+              });
+    
+        }else {           
+         res.status(200).render('user/inicio.html', {
+                refeicoes: refeicoes,
+                forms: forms[0],
+                formsUser: formsUser[0],
+              });
+        }
 
 
-          console.log(treinosAgrupadas)
 
-
-
-
-
-        
-        res.status(200).render('user/inicio.html', {
-            refeicoes: refeicoes,
-            forms: forms[0],
-            formsUser: formsUser[0],
-            treinosAgrupadas
-          });
 
     },
 
@@ -579,81 +588,90 @@ const listaController = {
 
 
         const [ficha] = await bd.query ("SELECT id FROM ficha WHERE  id_usuario = ? ", [userId])
-        const fichaId = ficha[0].id
 
-        let [card] = await bd.query ("SELECT * FROM dia WHERE id_ficha = ?", [fichaId])
+        if(ficha.length != 0) {
 
-        let [dia] = await bd.query(`SELECT d.dia, d.tipo , g.grupo, e.exercicio
-        FROM treino as t
-        JOIN ficha as f ON t.id_ficha = f.id
-        JOIN exercicio as e ON t.id_exercicio = e.id
-        JOIN dia as d ON t.id_dia = d.id
-        JOIN usuario as u ON t.id_usuario = u.id
-        JOIN profissional as p ON t.id_profissional = p.id
-        join grupo as g ON e.id_grupo = g.id
-
-        WHERE f.id = ?
-        `, [fichaId])
-          
-          const treinosAgrupadas = {}
-
-          let tipos = []
-          card.forEach((dados) => {
-            if (tipos.indexOf(dados.tipo) === -1) {
-                tipos.push(dados.tipo)
-            }
-          });
-
-          tipos.forEach((tipo) => {
-            treinosAgrupadas[tipo] = {
-                tipo: tipo,
-                dias: [],
-                grupos: {}
-            }
-          });
-
-          dia.forEach((dados) => {
-            if (treinosAgrupadas[dados.tipo].dias.indexOf(dados.dia) === -1) {
-                treinosAgrupadas[dados.tipo].dias.push(dados.dia);
-            }
-          });
-
-          tipos.forEach((tipo) => {
-            let grupos = []
-            dia.forEach((dados) => {
-                if (dados.tipo === tipo) {
-                    if (grupos.indexOf(dados.grupo) === -1) {
-                        grupos.push(dados.grupo);
-                    }
+            const fichaId = ficha[0].id
+    
+            let [card] = await bd.query ("SELECT * FROM dia WHERE id_ficha = ?", [fichaId])
+    
+            let [dia] = await bd.query(`SELECT d.dia, d.tipo , g.grupo, e.exercicio
+            FROM treino as t
+            JOIN ficha as f ON t.id_ficha = f.id
+            JOIN exercicio as e ON t.id_exercicio = e.id
+            JOIN dia as d ON t.id_dia = d.id
+            JOIN usuario as u ON t.id_usuario = u.id
+            JOIN profissional as p ON t.id_profissional = p.id
+            join grupo as g ON e.id_grupo = g.id
+    
+            WHERE f.id = ?
+            `, [fichaId])
+              
+              const treinosAgrupadas = {}
+    
+              let tipos = []
+              card.forEach((dados) => {
+                if (tipos.indexOf(dados.tipo) === -1) {
+                    tipos.push(dados.tipo)
                 }
               });
-     
-            grupos.forEach((grupo) => {
-                let exercicios = []
+    
+              tipos.forEach((tipo) => {
+                treinosAgrupadas[tipo] = {
+                    tipo: tipo,
+                    dias: [],
+                    grupos: {}
+                }
+              });
+    
+              dia.forEach((dados) => {
+                if (treinosAgrupadas[dados.tipo].dias.indexOf(dados.dia) === -1) {
+                    treinosAgrupadas[dados.tipo].dias.push(dados.dia);
+                }
+              });
+    
+              tipos.forEach((tipo) => {
+                let grupos = []
                 dia.forEach((dados) => {
-                    if (dados.tipo === tipo && dados.grupo === grupo) {
-                        if (exercicios.indexOf(dados.exercicio) === -1) {
-                            exercicios.push(dados.exercicio);
+                    if (dados.tipo === tipo) {
+                        if (grupos.indexOf(dados.grupo) === -1) {
+                            grupos.push(dados.grupo);
                         }
                     }
+                  });
+         
+                grupos.forEach((grupo) => {
+                    let exercicios = []
+                    dia.forEach((dados) => {
+                        if (dados.tipo === tipo && dados.grupo === grupo) {
+                            if (exercicios.indexOf(dados.exercicio) === -1) {
+                                exercicios.push(dados.exercicio);
+                            }
+                        }
+                    });
+                    treinosAgrupadas[tipo].grupos[grupo] = {
+                        grupo: grupo,
+                        exercicios: exercicios
+                    }
                 });
-                treinosAgrupadas[tipo].grupos[grupo] = {
-                    grupo: grupo,
-                    exercicios: exercicios
-                }
-            });
-          });
-
-
-          console.log(treinosAgrupadas)
-
-
+              });
     
-        res.render('user/treinos-semana.html',{
-            forms:forms[0],
-            formsUser: formsUser[0],
-            treinosAgrupadas
-        })
+    
+              console.log(treinosAgrupadas)
+    
+    
+        
+            res.render('user/treinos-semana.html',{
+                forms:forms[0],
+                formsUser: formsUser[0],
+                treinosAgrupadas
+            })
+        } else {
+            res.render('user/treinos-semana.html',{
+                forms:forms[0],
+                formsUser: formsUser[0],              
+            })
+        }
     },
 
     getUserProfile: async (req,res,next) => {
